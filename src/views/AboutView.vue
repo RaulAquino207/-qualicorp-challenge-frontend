@@ -1,8 +1,14 @@
 <template>
   <div class="about">
-    <h1>My github</h1>
+    
   </div>
 </template>
+<script>
+
+export default {
+  name: 'AboutView',
+}
+</script>
 <style>
     .about{
       height:80vh;

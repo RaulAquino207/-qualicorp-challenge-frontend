@@ -43,6 +43,6 @@ export default {
     transition: .5s;
   }
   #nav a:hover {
-    color: #DEC057;
+    color: #fcb00f;
   }
 </style>
