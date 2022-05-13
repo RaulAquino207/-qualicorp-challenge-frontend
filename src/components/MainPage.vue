@@ -1,66 +1,85 @@
 <template>
   <div>
-    <h1>This is a {{ info }}</h1>
-    <p>FIRST PAGE</p>
-    <!-- <ul>
-        <li v-for="(customer, index) in backend_returns" v-bind:key="index">
-            <h3>{{customer.name}}</h3>
-        </li>
-    </ul> -->
-    <b-table striped hover :items="items" :fields="fields"></b-table>
+    <h1>Customer list</h1>
+
+    <div class="table ">
+        <b-table striped borderless hover :items="items" :fields="fields">
+            <template slot(edit)="data">
+                <router-link :to="
+                {
+                    name: 'HelloWorld',
+                    params: { customerId: data._id }
+                }"
+                class="btn btn-sucess"><i class="fas fa-edit"></i>
+                </router-link>
+            </template>
+            <template>
+
+            </template>
+        </b-table>
+    </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "MainPage",
   data() {
     return {
-      info: "MAIN PAGE",
-      fields: ['cpf', 'name', 'email', 'phone'],
-      items: [
-        {
-          _id: "627b2a5ffb588d4c3546f5e2",
-          cpf: "11122233344",
-          name: "Raul Aquino",
-          email: "raul@email.com",
-          phone: "85988720964",
-          __v: 0,
-        },
-        {
-          _id: "627d998152269ca9ddab3272",
-          cpf: "11122233344",
-          name: "Joshuel Nobre",
-          email: "joshuel@email.com",
-          phone: "85988720965",
-          __v: 0,
-        },
-        {
-          _id: "627d999152269ca9ddab3274",
-          cpf: "11122233344",
-          name: "Guilherme Portela",
-          email: "guilherme@email.com",
-          phone: "85988720966",
-          __v: 0,
-        },
-        {
-          _id: "627d99a052269ca9ddab3276",
-          cpf: "11122233344",
-          name: "Carlos Brunno",
-          email: "carlos@email.com",
-          phone: "85988720967",
-          __v: 0,
-        },
-        {
-          _id: "627d99b052269ca9ddab3278",
-          cpf: "11122233344",
-          name: "Nityananda Barbosa",
-          email: "nity@email.com",
-          phone: "85988720987",
-          __v: 0,
-        },
+      url: `${process.env.VUE_APP_API_URL}`,
+      fields: [
+          {
+              key: 'cpf',
+              label: 'CPF'
+          },
+          {
+              key: 'name',
+              label: 'NAME'
+          },
+          {
+              key: 'email',
+              label: 'EMAIL'
+          },
+          {
+              key: 'phone',
+              label: 'PHONE'
+          },
+          {
+              key: 'edit',
+              label: 'EDIT'
+          },
+          {
+              key: 'delete',
+              label: 'DELETE'
+          },
       ],
+      items: [],
     };
   },
+  mounted() {
+     axios
+        .get('http://localhost:3000/api/customer')
+        .then((response) => {
+            console.log(response.data)
+            this.items = response.data
+        })
+  }
 };
 </script>
+<style>
+    .table {
+        padding-top: 25px;
+        padding-right: 15%;
+        padding-bottom: 35px;
+        padding-left: 15%;
+    }
+    h1{
+        font-style: normal;
+        font-weight: 600;
+        font-size: 31.5px;
+        line-height: 47px;
+
+        color: #323232;
+    }
+</style>

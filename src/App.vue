@@ -1,37 +1,43 @@
 <template>
-  <img alt="Vue logo" src="./assets/image001.png">
-  <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-  <MainPage/>
+  <div>
+    <NavigationBar :logo="logo_src" :alt="app_name" />
+    <div class="router">
+      <router-view></router-view>
+    </div>
+    <FooterBar />
+  </div>
 </template>
-
 <script>
-// import HelloWorld from './components/HelloWorld.vue'
-import MainPage from './components/MainPage.vue'
-
+import NavigationBar from './components/NavigationBar'
+import FooterBar from './components/FooterBar.vue'
 export default {
-  name: 'App',
+  data: function() {
+    return {
+      app_name: "Qualicorp challenge"
+    }
+  },
   components: {
-    MainPage
+    NavigationBar,
+    FooterBar
   }
 }
 </script>
 
 <style>
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
-
-  body {
-    background: #F7F7F7 !important;
-    text-align: center !important;
-    /* font-family: Poppins !important;
-    font-family: Avenir, Helvetica, Arial, sans-serif !important; */
-    /* -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale; */
+  * {
+    font-family: Helvetica;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .main-container {
+    margin: 50px;
+    min-height: 250px;
+  }
+  h1 {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 30px;
+    color: #222;
   }
 </style>
