@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <CustomerModal :show="show"/>
+    <CustomerModal @ok="emitOk" :show="show" :edit="edit"/>
     <div class="header">
       <span>Customer base</span>
       <button type="button" class="btn btn-success" @click="showModal">
@@ -9,7 +9,7 @@
         </span>
       </button>
     </div>
-    <TableCustomer/>
+    <TableCustomer :ok="ok" @edit-customer="editCustomer"/>
   </div>
 </template>
 
@@ -20,13 +20,31 @@ export default {
   name: 'HomeView',
   data() {
     return {
-      show: false
+      ok: false,
+      show: false,
+      edit: {}
     }
   },
    methods: {
     showModal() {
-      this.show = !this.show;
-      console.log(this.show)
+      this.edit = {};
+      this.show = false;
+       setInterval(() => {
+        this.show = true;
+      }, 500);
+    },
+    editCustomer(e){
+      this.show = false;
+      setInterval(() => {
+        this.show = true;
+      }, 500);
+      this.edit = e;
+    },
+    emitOk(){
+      this.ok = false;
+      setInterval(() => {
+        this.ok = true;
+      }, 500);
     }
   },
   components: {

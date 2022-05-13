@@ -11,7 +11,7 @@
           <th>{{ item.email }}</th>
           <th>{{ item.phone }}</th>
           <td class="action">
-            <button @click="editCustomer(item._id)">
+            <button @click="editCustomer(item)">
               <i class="bx bx-edit"><BootstrapIcon icon="pencil-square" /></i>
             </button>
           </td>
@@ -31,6 +31,9 @@
 import axios from "axios";
 export default {
   name: "TableCustomer",
+  props: {
+    ok: Boolean,
+  },
   data() {
     return {
       url: `${process.env.VUE_APP_API_URL}`,
@@ -65,13 +68,12 @@ export default {
   },
   mounted() {
     axios.get(`${this.url}/api/customer`).then((response) => {
-      console.log(response.data);
       this.items = response.data;
     });
   },
   methods: {
-    editCustomer(id) {
-      console.log("EDIT", id);
+    editCustomer(item) {
+      this.$emit('edit-customer', item);
     },
     removeCustomer(id) {
       axios.delete(`${this.url}/api/customer/${id}`).then(() => {
@@ -84,6 +86,14 @@ export default {
       });
     },
   },
+  watch: {
+    ok() {
+      axios.get(`${this.url}/api/customer`).then((response) => {
+      this.items = response.data;
+    });
+    },
+  },
+  emits: ['show']
 };
 </script>
 <style scoped>
