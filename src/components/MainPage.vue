@@ -59,7 +59,7 @@ export default {
   },
   mounted() {
      axios
-        .get('http://localhost:3000/api/customer')
+        .get(`${url}/api/customer`)
         .then((response) => {
             console.log(response.data)
             this.items = response.data
